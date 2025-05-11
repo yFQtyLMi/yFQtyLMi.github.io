@@ -1,0 +1,2799 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SupertonicTTS Demo</title>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link rel="icon"
+            href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔊</text></svg>">
+    </head>
+
+    <body>
+        <header>
+            <div class="texture-overlay"></div>
+
+            <div class="container">
+                <span class="badge">Research Demo</span>
+                <h1>SupertonicTTS</h1>
+                <p class="subtitle">Towards Highly Scalable and Efficient
+                    Text-to-Speech System</p>
+                <div class="author-info">
+                    <div class="author-info-header">
+                        <i class="fas fa-users"></i>
+                        <p>Anonymous Authors</p>
+                    </div>
+
+                </div>
+            </div>
+        </header>
+
+        <nav class="main-nav">
+            <div class="container">
+                <ul class="nav-links">
+                    <li><a href="#introduction"><i
+                                class="fas fa-info-circle"></i>
+                            Overview</a></li>
+                    <li><a href="#inference-steps"><i
+                                class="fas fa-headphones"></i> Comparison of
+                            Inference Steps</a></li>
+                    <li><a href="#audio-samples"><i
+                                class="fas fa-headphones"></i> Comparison with
+                            Other TTS Models</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <main class="container">
+            <section id="introduction">
+                <h2>Overview</h2>
+                <div class="paper-abstract">
+                    <p>
+                        We present a novel text-to-speech (TTS) system, namely
+                        SupertonicTTS, for improved scalability and
+                        efficiency in speech synthesis. SupertonicTTS is
+                        comprised of three components: a speech
+                        autoencoder for continuous latent representation, a
+                        text-to-latent module leveraging flow-matching
+                        for text-to-latent mapping, and an utterance-level
+                        duration predictor. To enable a lightweight
+                        architecture, we employ a low-dimensional latent space,
+                        temporal compression of latents, and
+                        ConvNeXt blocks. We further simplify the TTS pipeline by
+                        operating directly on raw character-level
+                        text and employing cross-attention for text-speech
+                        alignment, thus eliminating the need for
+                        grapheme-to-phoneme (G2P) modules and external aligners.
+                        Furthermore, we introduce context-sharing
+                        batch expansion that accelerates loss convergence and
+                        stabilizes text-speech alignment. Experimental
+                        results demonstrate that SupertonicTTS achieves
+                        competitive performance while significantly reducing
+                        architectural complexity and computational overhead
+                        compared to contemporary TTS models.
+                    </p>
+
+                </div>
+            </section>
+
+            <section id="inference-steps">
+                <h2>Comparison of Inference Steps</h2>
+                <div class="audio-intro">
+                    <p>
+                        Audio samples were generated using our proposed method
+                        with varying numbers of inference steps (4, 8, 16, 32,
+                        64, 128).
+                    </p>
+                    <p>
+                        Listen and compare the synthesized speech quality across
+                        different inference steps.
+                    </p>
+                </div>
+
+                <div class="comparison-grid">
+                    <!-- Sample 1 -->
+                    <div class="step-sample-tabs">
+                        <button class="step-sample-tab active"
+                            step-data-sample="1">
+                            <i class="fas fa-music"></i> Sample 1
+                        </button>
+                        <button class="step-sample-tab"
+                            step-data-sample="2">
+                            <i class="fas fa-music"></i> Sample 2
+                        </button>
+                        <button class="step-sample-tab"
+                            step-data-sample="3">
+                            <i class="fas fa-music"></i> Sample 3
+                        </button>
+                        <button class="step-sample-tab"
+                            step-data-sample="4">
+                            <i class="fas fa-music"></i> Sample 4
+                        </button>
+                    </div>
+
+                    <!-- Sample 1 Content -->
+                    <div class="sample-content active" step-data-sample="1">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 1:
+                                "This truth which I have learned from her lips
+                                is confirmed by his face in which we have
+                                both beheld that of our son."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/1_ref.wav"></audio>
+                                    <div class="audio-description">
+                                        <i class="fas fa-info-circle"></i>
+                                        Original recording used as reference for
+                                        zero-shot TTS synthesis.
+                                    </div>
+                                </div>
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-play"></i> Step 4</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/1_supertonic_4_cfg_w_3.0.wav"></audio>
+                                    <div class="audio-description"><i
+                                            class="fas fa-info-circle"></i>
+                                        Generated
+                                        with 4 inference steps.</div>
+                                </div>
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-play"></i> Step 8</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/1_supertonic_8_cfg_w_3.0.wav"></audio>
+                                    <div class="audio-description"><i
+                                            class="fas fa-info-circle"></i>
+                                        Generated
+                                        with 8 inference steps.</div>
+                                </div>
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-play"></i> Step
+                                        16</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/1_supertonic_16_cfg_w_3.0.wav"></audio>
+                                    <div class="audio-description"><i
+                                            class="fas fa-info-circle"></i>
+                                        Generated
+                                        with 16 inference steps.</div>
+                                </div>
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-play"></i> Step
+                                        32</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/1_supertonic_32_cfg_w_3.0.wav"></audio>
+                                    <div class="audio-description"><i
+                                            class="fas fa-info-circle"></i>
+                                        Generated
+                                        with 32 inference steps.</div>
+                                </div>
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-play"></i> Step
+                                        64</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/1_supertonic_64_cfg_w_3.0.wav"></audio>
+                                    <div class="audio-description"><i
+                                            class="fas fa-info-circle"></i>
+                                        Generated
+                                        with 64 inference steps.</div>
+                                </div>
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-play"></i> Step
+                                        128</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/1_supertonic_128_cfg_w_3.0.wav"></audio>
+                                    <div class="audio-description"><i
+                                            class="fas fa-info-circle"></i>
+                                        Generated
+                                        with 128 inference steps.</div>
+                                </div>
+                                <div class="audio-item ground-truth-audio">
+                                    <div class="audio-badge">GT</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Ground-truth Speech</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/1_gt.wav"></audio>
+                                    <div class="audio-description"><i
+                                            class="fas fa-info-circle"></i>
+                                        Original recording from the reference
+                                        speaker reading the text.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sample 2 Content -->
+                    <div class="sample-content" step-data-sample="2">
+
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 2:
+                                "This sentence also defines our sins as great so
+                                great in fact that the whole world could
+                                not make amends for a single sin."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/2_ref.wav"></audio>
+                                    <div class="audio-description">
+                                        <i class="fas fa-info-circle"></i>
+                                        Original recording used as reference for
+                                        zero-shot TTS synthesis.
+                                    </div>
+                                </div>
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-play"></i> Step 4</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/2_supertonic_4_cfg_w_3.0.wav"></audio>
+                                    <div class="audio-description"><i
+                                            class="fas fa-info-circle"></i>
+                                        Generated
+                                        with 4 inference steps.</div>
+                                </div>
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-play"></i> Step 8</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/2_supertonic_8_cfg_w_3.0.wav"></audio>
+                                    <div class="audio-description"><i
+                                            class="fas fa-info-circle"></i>
+                                        Generated
+                                        with 8 inference steps.</div>
+                                </div>
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-play"></i> Step
+                                        16</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/2_supertonic_16_cfg_w_3.0.wav"></audio>
+                                    <div class="audio-description"><i
+                                            class="fas fa-info-circle"></i>
+                                        Generated
+                                        with 16 inference steps.</div>
+                                </div>
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-play"></i> Step
+                                        32</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/2_supertonic_32_cfg_w_3.0.wav"></audio>
+                                    <div class="audio-description"><i
+                                            class="fas fa-info-circle"></i>
+                                        Generated
+                                        with 32 inference steps.</div>
+                                </div>
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-play"></i> Step
+                                        64</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/2_supertonic_64_cfg_w_3.0.wav"></audio>
+                                    <div class="audio-description"><i
+                                            class="fas fa-info-circle"></i>
+                                        Generated
+                                        with 64 inference steps.</div>
+                                </div>
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-play"></i> Step
+                                        128</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/2_supertonic_128_cfg_w_3.0.wav"></audio>
+                                    <div class="audio-description"><i
+                                            class="fas fa-info-circle"></i>
+                                        Generated
+                                        with 128 inference steps.</div>
+                                </div>
+                                <div class="audio-item ground-truth-audio">
+                                    <div class="audio-badge">GT</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Ground-truth Speech</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/2_gt.wav"></audio>
+                                    <div class="audio-description"><i
+                                            class="fas fa-info-circle"></i>
+                                        Original recording from the reference
+                                        speaker reading the text.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sample 3 Content -->
+                    <div class="sample-content" step-data-sample="3">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 3:
+                                "I remember now and I congratulate myself do you love anyone."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/3_ref.wav"></audio>
+                                    <div class="audio-description">
+                                        <i class="fas fa-info-circle"></i>
+                                        Original recording used as reference for
+                                        zero-shot TTS synthesis.
+                                    </div>
+                                </div>
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-play"></i> Step 4</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/3_supertonic_4_cfg_w_3.0.wav"></audio>
+                                    <div class="audio-description"><i
+                                            class="fas fa-info-circle"></i>
+                                        Generated
+                                        with 4 inference steps.</div>
+                                </div>
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-play"></i> Step 8</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/3_supertonic_8_cfg_w_3.0.wav"></audio>
+                                    <div class="audio-description"><i
+                                            class="fas fa-info-circle"></i>
+                                        Generated
+                                        with 8 inference steps.</div>
+                                </div>
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-play"></i> Step
+                                        16</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/3_supertonic_16_cfg_w_3.0.wav"></audio>
+                                    <div class="audio-description"><i
+                                            class="fas fa-info-circle"></i>
+                                        Generated
+                                        with 16 inference steps.</div>
+                                </div>
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-play"></i> Step
+                                        32</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/3_supertonic_32_cfg_w_3.0.wav"></audio>
+                                    <div class="audio-description"><i
+                                            class="fas fa-info-circle"></i>
+                                        Generated
+                                        with 32 inference steps.</div>
+                                </div>
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-play"></i> Step
+                                        64</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/3_supertonic_64_cfg_w_3.0.wav"></audio>
+                                    <div class="audio-description"><i
+                                            class="fas fa-info-circle"></i>
+                                        Generated
+                                        with 64 inference steps.</div>
+                                </div>
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-play"></i> Step
+                                        128</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/3_supertonic_128_cfg_w_3.0.wav"></audio>
+                                    <div class="audio-description"><i
+                                            class="fas fa-info-circle"></i>
+                                        Generated
+                                        with 128 inference steps.</div>
+                                </div>
+                                <div class="audio-item ground-truth-audio">
+                                    <div class="audio-badge">GT</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Ground-truth Speech</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/3_gt.wav"></audio>
+                                    <div class="audio-description"><i
+                                            class="fas fa-info-circle"></i>
+                                        Original recording from the reference
+                                        speaker reading the text.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sample 4 Content -->
+                    <div class="sample-content" step-data-sample="4">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 4:
+                                "Notwithstanding the high resolution of hawkeye
+                                he fully comprehended all the difficulties
+                                and danger he was about to incur."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/4_ref.wav"></audio>
+                                    <div class="audio-description">
+                                        <i class="fas fa-info-circle"></i>
+                                        Original recording used as reference for
+                                        zero-shot TTS synthesis.
+                                    </div>
+                                </div>
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-play"></i> Step 4</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/4_supertonic_4_cfg_w_3.0.wav"></audio>
+                                    <div class="audio-description"><i
+                                            class="fas fa-info-circle"></i>
+                                        Generated
+                                        with 4 inference steps.</div>
+                                </div>
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-play"></i> Step 8</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/4_supertonic_8_cfg_w_3.0.wav"></audio>
+                                    <div class="audio-description"><i
+                                            class="fas fa-info-circle"></i>
+                                        Generated
+                                        with 8 inference steps.</div>
+                                </div>
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-play"></i> Step
+                                        16</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/4_supertonic_16_cfg_w_3.0.wav"></audio>
+                                    <div class="audio-description"><i
+                                            class="fas fa-info-circle"></i>
+                                        Generated
+                                        with 16 inference steps.</div>
+                                </div>
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-play"></i> Step
+                                        32</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/4_supertonic_32_cfg_w_3.0.wav"></audio>
+                                    <div class="audio-description"><i
+                                            class="fas fa-info-circle"></i>
+                                        Generated
+                                        with 32 inference steps.</div>
+                                </div>
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-play"></i> Step
+                                        64</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/4_supertonic_64_cfg_w_3.0.wav"></audio>
+                                    <div class="audio-description"><i
+                                            class="fas fa-info-circle"></i>
+                                        Generated
+                                        with 64 inference steps.</div>
+                                </div>
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-play"></i> Step
+                                        128</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/4_supertonic_128_cfg_w_3.0.wav"></audio>
+                                    <div class="audio-description"><i
+                                            class="fas fa-info-circle"></i>
+                                        Generated
+                                        with 128 inference steps.</div>
+                                </div>
+                                <div class="audio-item ground-truth-audio">
+                                    <div class="audio-badge">GT</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Ground-truth Speech</h4>
+                                    <audio controls
+                                        src="audio/inference_steps/4_gt.wav"></audio>
+                                    <div class="audio-description"><i
+                                            class="fas fa-info-circle"></i>
+                                        Original recording from the reference
+                                        speaker reading the text.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="audio-samples">
+                <h2>Comparison with Other TTS Models</h2>
+                <div class="audio-intro">
+                    <p>We generated audio samples using our proposed method,
+                        utilizing reference speech from each baseline model's
+                        demo page.</p>
+                    <p>Listen and compare the audio samples generated with our
+                        proposed method versus existing baseline approaches.</p>
+                </div>
+
+                <div class="comparison-tabs">
+                    <button class="comparison-tab active" data-tab="valle">
+                        <i class="fas fa-flask"></i> VALL-E
+                    </button>
+                    <button class="comparison-tab" data-tab="voicebox">
+                        <i class="fas fa-flask"></i> VoiceBox
+                    </button>
+                    <button class="comparison-tab" data-tab="mega-tts">
+                        <i class="fas fa-flask"></i> Mega-TTS 2
+                    </button>
+                    <button class="comparison-tab" data-tab="clam-tts">
+                        <i class="fas fa-flask"></i> CLaM-TTS
+                    </button>
+                    <button class="comparison-tab" data-tab="ditto-tts">
+                        <i class="fas fa-flask"></i> DiTTo-TTS
+                    </button>
+                </div>
+
+                <!-- VALL-E Comparison -->
+                <div class="comparison-content active" id="valle">
+                    <div class="sample-tabs">
+                        <button class="sample-tab active" data-sample="1">
+                            <i class="fas fa-music"></i> Sample 1
+                        </button>
+                        <button class="sample-tab" data-sample="2">
+                            <i class="fas fa-music"></i> Sample 2
+                        </button>
+                        <button class="sample-tab" data-sample="3">
+                            <i class="fas fa-music"></i> Sample 3
+                        </button>
+                        <button class="sample-tab" data-sample="4">
+                            <i class="fas fa-music"></i> Sample 4
+                        </button>
+                        <button class="sample-tab" data-sample="5">
+                            <i class="fas fa-music"></i> Sample 5
+                        </button>
+                        <button class="sample-tab" data-sample="6">
+                            <i class="fas fa-music"></i> Sample 6
+                        </button>
+                    </div>
+
+                    <div class="sample-content active" data-sample="1">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 1:
+                                "Yea his honourable worship is within but he
+                                hath a godly minister or two with him and
+                                likewise a leech."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"
+                                    aria-label="Scroll left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"
+                                    aria-label="Scroll right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/valle/prompt/valle_prompt_1.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording used as reference
+                                            for zero-shot TTS synthesis.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-star"></i> Our
+                                        Method</h4>
+                                    <audio controls
+                                        src="audio/valle/ours/valle_prompt_1_est.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Generated using the proposed model
+                                            with 32 inference steps.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Baseline</div>
+                                    <h4><i class="fas fa-flask"></i> VALL-E</h4>
+                                    <audio controls
+                                        src="audio/valle/baseline/valle_output_1.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Sourced from <a
+                                                href="https://www.microsoft.com/en-us/research/project/vall-e-x/vall-e/"
+                                                target="_blank">VALL-E demo
+                                                page</a>.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item ground-truth-audio">
+                                    <div class="audio-badge">GT</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Ground-truth Speech</h4>
+                                    <audio controls
+                                        src="audio/valle/gt/valle_gt_1.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording from the
+                                            reference speaker reading the
+                                            text.</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sample-content" data-sample="2">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 2:
+                                "They moved thereafter cautiously about the hut
+                                groping before and about them to find
+                                something to show that Warrenton had fulfilled
+                                his mission."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"
+                                    aria-label="Scroll left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"
+                                    aria-label="Scroll right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/valle/prompt/valle_prompt_2.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording used as reference
+                                            for zero-shot TTS synthesis.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-star"></i> Our
+                                        Method</h4>
+                                    <audio controls
+                                        src="audio/valle/ours/valle_prompt_2_est.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Generated using the proposed model
+                                            with 32 inference steps.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Baseline</div>
+                                    <h4><i class="fas fa-flask"></i> VALL-E</h4>
+                                    <audio controls
+                                        src="audio/valle/baseline/valle_output_2.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Sourced from <a
+                                                href="https://www.microsoft.com/en-us/research/project/vall-e-x/vall-e/"
+                                                target="_blank">VALL-E demo
+                                                page</a>.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item ground-truth-audio">
+                                    <div class="audio-badge">GT</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Ground-truth Speech</h4>
+                                    <audio controls
+                                        src="audio/valle/gt/valle_gt_2.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording from the
+                                            reference speaker reading the
+                                            text.</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sample-content" data-sample="3">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 3:
+                                "Number ten fresh nelly is waiting on you good night husband."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"
+                                    aria-label="Scroll left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"
+                                    aria-label="Scroll right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/valle/prompt/valle_prompt_3.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording used as reference
+                                            for zero-shot TTS synthesis.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-star"></i> Our
+                                        Method</h4>
+                                    <audio controls
+                                        src="audio/valle/ours/valle_prompt_3_est.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Generated using the proposed model
+                                            with 32 inference steps.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Baseline</div>
+                                    <h4><i class="fas fa-flask"></i> VALL-E</h4>
+                                    <audio controls
+                                        src="audio/valle/baseline/valle_output_3.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Sourced from <a
+                                                href="https://www.microsoft.com/en-us/research/project/vall-e-x/vall-e/"
+                                                target="_blank">VALL-E demo
+                                                page</a>.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item ground-truth-audio">
+                                    <div class="audio-badge">GT</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Ground-truth Speech</h4>
+                                    <audio controls
+                                        src="audio/valle/gt/valle_gt_3.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording from the
+                                            reference speaker reading the
+                                            text.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sample-content" data-sample="4">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 4:
+                                "And lay me down in thy cold bed and leave my shining lot."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"
+                                    aria-label="Scroll left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"
+                                    aria-label="Scroll right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/valle/prompt/valle_prompt_4.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording used as reference
+                                            for zero-shot TTS synthesis.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-star"></i> Our
+                                        Method</h4>
+                                    <audio controls
+                                        src="audio/valle/ours/valle_prompt_4_est.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Generated using the proposed model
+                                            with 32 inference steps.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Baseline</div>
+                                    <h4><i class="fas fa-flask"></i> VALL-E</h4>
+                                    <audio controls
+                                        src="audio/valle/baseline/valle_output_4.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Sourced from <a
+                                                href="https://www.microsoft.com/en-us/research/project/vall-e-x/vall-e/"
+                                                target="_blank">VALL-E demo
+                                                page</a>.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item ground-truth-audio">
+                                    <div class="audio-badge">GT</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Ground-truth Speech</h4>
+                                    <audio controls
+                                        src="audio/valle/gt/valle_gt_4.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording from the
+                                            reference speaker reading the
+                                            text.</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sample-content" data-sample="5">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 5:
+                                "Instead of shoes the old man wore boots with
+                                turnover tops and his blue coat had wide cuffs
+                                of gold braid."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"
+                                    aria-label="Scroll left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"
+                                    aria-label="Scroll right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/valle/prompt/valle_prompt_5.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording used as reference
+                                            for zero-shot TTS synthesis.</p>
+                                    </div>
+                                </div>
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-star"></i> Our
+                                        Method</h4>
+                                    <audio controls
+                                        src="audio/valle/ours/valle_prompt_5_est.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Generated using the proposed model
+                                            with 32 inference steps.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Baseline</div>
+                                    <h4><i class="fas fa-flask"></i> VALL-E</h4>
+                                    <audio controls
+                                        src="audio/valle/baseline/valle_output_5.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Sourced from <a
+                                                href="https://www.microsoft.com/en-us/research/project/vall-e-x/vall-e/"
+                                                target="_blank">VALL-E demo
+                                                page</a>.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item ground-truth-audio">
+                                    <div class="audio-badge">GT</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Ground-truth Speech</h4>
+                                    <audio controls
+                                        src="audio/valle/gt/valle_gt_5.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording from the
+                                            reference speaker reading the
+                                            text.</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sample-content" data-sample="6">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 6:
+                                "The army found the people in poverty and left them in comparative wealth."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"
+                                    aria-label="Scroll left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"
+                                    aria-label="Scroll right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/valle/prompt/valle_prompt_6.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording used as reference
+                                            for zero-shot TTS synthesis.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-star"></i> Our
+                                        Method</h4>
+                                    <audio controls
+                                        src="audio/valle/ours/valle_prompt_6_est.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Generated using the proposed model
+                                            with 32 inference steps.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Baseline</div>
+                                    <h4><i class="fas fa-flask"></i> VALL-E</h4>
+                                    <audio controls
+                                        src="audio/valle/baseline/valle_output_6.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Sourced from <a
+                                                href="https://www.microsoft.com/en-us/research/project/vall-e-x/vall-e/"
+                                                target="_blank">VALL-E demo
+                                                page</a>.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item ground-truth-audio">
+                                    <div class="audio-badge">GT</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Ground-truth Speech</h4>
+                                    <audio controls
+                                        src="audio/valle/gt/valle_gt_6.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording from the
+                                            reference speaker reading the
+                                            text.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VoiceBox Comparison -->
+                <div class="comparison-content" id="voicebox">
+                    <div class="sample-tabs">
+                        <button class="sample-tab active" data-sample="1">
+                            <i class="fas fa-music"></i> Sample 1
+                        </button>
+                        <button class="sample-tab" data-sample="2">
+                            <i class="fas fa-music"></i> Sample 2
+                        </button>
+                        <button class="sample-tab" data-sample="3">
+                            <i class="fas fa-music"></i> Sample 3
+                        </button>
+                        <button class="sample-tab" data-sample="4">
+                            <i class="fas fa-music"></i> Sample 4
+                        </button>
+                        <button class="sample-tab" data-sample="5">
+                            <i class="fas fa-music"></i> Sample 5
+                        </button>
+                        <button class="sample-tab" data-sample="6">
+                            <i class="fas fa-music"></i> Sample 6
+                        </button>
+                    </div>
+
+                    <div class="sample-content active" data-sample="1">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 1:
+                                "Thus did this humane and right minded father
+                                comfort his unhappy daughter and her mother
+                                embracing her again did all she could to soothe
+                                her feelings."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"
+                                    aria-label="Scroll left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"
+                                    aria-label="Scroll right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/voicebox/prompt/vb_prompt_1.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording used as reference
+                                            for zero-shot TTS synthesis.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-star"></i> Our
+                                        Method</h4>
+                                    <audio controls
+                                        src="audio/voicebox/ours/vb_prompt_1_est.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Generated using the proposed model
+                                            with 32 inference steps.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Baseline</div>
+                                    <h4><i class="fas fa-flask"></i>
+                                        VoiceBox</h4>
+                                    <audio controls
+                                        src="audio/voicebox/baseline/vb_output_1.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Sourced from <a
+                                                href="https://voicebox.metademolab.com/zs_tts.html"
+                                                target="_blank">VoiceBox demo
+                                                page</a>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sample-content" data-sample="3">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 3:
+                                "And lay me down in thy cold bed and leave my shining lot."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"
+                                    aria-label="Scroll left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"
+                                    aria-label="Scroll right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/voicebox/prompt/vb_prompt_3.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording used as reference
+                                            for zero-shot TTS synthesis.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-star"></i> Our
+                                        Method</h4>
+                                    <audio controls
+                                        src="audio/voicebox/ours/vb_prompt_3_est.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Generated using the proposed model
+                                            with 32 inference steps.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Baseline</div>
+                                    <h4><i class="fas fa-flask"></i>
+                                        VoiceBox</h4>
+                                    <audio controls
+                                        src="audio/voicebox/baseline/vb_output_3.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Sourced from <a
+                                                href="https://voicebox.metademolab.com/zs_tts.html"
+                                                target="_blank">VoiceBox demo
+                                                page</a>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sample-content" data-sample="2">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 2:
+                                "They moved thereafter cautiously about the hut
+                                groping before and about them to find
+                                something to show that warrenton had fulfilled
+                                his mission."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"
+                                    aria-label="Scroll left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"
+                                    aria-label="Scroll right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/voicebox/prompt/vb_prompt_2.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording used as reference
+                                            for zero-shot TTS synthesis.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-star"></i> Our
+                                        Method</h4>
+                                    <audio controls
+                                        src="audio/voicebox/ours/vb_prompt_2_est.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Generated using the proposed model
+                                            with 32 inference steps.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Baseline</div>
+                                    <h4><i class="fas fa-flask"></i>
+                                        VoiceBox</h4>
+                                    <audio controls
+                                        src="audio/voicebox/baseline/vb_output_2.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Sourced from <a
+                                                href="https://voicebox.metademolab.com/zs_tts.html"
+                                                target="_blank">VoiceBox demo
+                                                page</a>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sample-content" data-sample="4">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 4:
+                                "And the whole night the tree stood still and in deep thought."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"
+                                    aria-label="Scroll left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"
+                                    aria-label="Scroll right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/voicebox/prompt/vb_prompt_4.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording used as reference
+                                            for zero-shot TTS synthesis.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-star"></i> Our
+                                        Method</h4>
+                                    <audio controls
+                                        src="audio/voicebox/ours/vb_prompt_4_est.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Generated using the proposed model
+                                            with 32 inference steps.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Baseline</div>
+                                    <h4><i class="fas fa-flask"></i>
+                                        VoiceBox</h4>
+                                    <audio controls
+                                        src="audio/voicebox/baseline/vb_output_4.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Sourced from <a
+                                                href="https://voicebox.metademolab.com/zs_tts.html"
+                                                target="_blank">VoiceBox demo
+                                                page</a>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sample-content" data-sample="5">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 5:
+                                "Instead of shoes the old man wore boots with
+                                turnover tops and his blue coat had wide cuffs
+                                of gold braid."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"
+                                    aria-label="Scroll left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"
+                                    aria-label="Scroll right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/voicebox/prompt/vb_prompt_5.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording used as reference
+                                            for zero-shot TTS synthesis.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-star"></i> Our
+                                        Method</h4>
+                                    <audio controls
+                                        src="audio/voicebox/ours/vb_prompt_5_est.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Generated using the proposed model
+                                            with 32 inference steps.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Baseline</div>
+                                    <h4><i class="fas fa-flask"></i>
+                                        VoiceBox</h4>
+                                    <audio controls
+                                        src="audio/voicebox/baseline/vb_output_5.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Sourced from <a
+                                                href="https://voicebox.metademolab.com/zs_tts.html"
+                                                target="_blank">VoiceBox demo
+                                                page</a>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sample-content" data-sample="6">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 6:
+                                "The army found the people in poverty and left them in comparative wealth."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"
+                                    aria-label="Scroll left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"
+                                    aria-label="Scroll right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/voicebox/prompt/vb_prompt_6.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording used as reference
+                                            for zero-shot TTS synthesis.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-star"></i> Our
+                                        Method</h4>
+                                    <audio controls
+                                        src="audio/voicebox/ours/vb_prompt_6_est.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Generated using the proposed model
+                                            with 32 inference steps.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Baseline</div>
+                                    <h4><i class="fas fa-flask"></i>
+                                        VoiceBox</h4>
+                                    <audio controls
+                                        src="audio/voicebox/baseline/vb_output_6.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Sourced from <a
+                                                href="https://voicebox.metademolab.com/zs_tts.html"
+                                                target="_blank">VoiceBox demo
+                                                page</a>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mega-TTS 2 Comparison -->
+                <div class="comparison-content" id="mega-tts">
+                    <div class="sample-tabs">
+                        <button class="sample-tab active" data-sample="1">
+                            <i class="fas fa-music"></i> Sample 1
+                        </button>
+                        <button class="sample-tab" data-sample="2">
+                            <i class="fas fa-music"></i> Sample 2
+                        </button>
+                        <button class="sample-tab" data-sample="3">
+                            <i class="fas fa-music"></i> Sample 3
+                        </button>
+                        <button class="sample-tab" data-sample="4">
+                            <i class="fas fa-music"></i> Fun Sample 4
+                        </button>
+                        <button class="sample-tab" data-sample="5">
+                            <i class="fas fa-music"></i> Fun Sample 5
+                        </button>
+                        <button class="sample-tab" data-sample="6">
+                            <i class="fas fa-music"></i> Fun Sample 6
+                        </button>
+                    </div>
+
+                    <div class="sample-content active" data-sample="1">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 1:
+                                "There their sad condition evoked for a time general commiseration."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"
+                                    aria-label="Scroll left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"
+                                    aria-label="Scroll right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/mega-tts2/prompt/mega_1.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording used as reference
+                                            for zero-shot TTS synthesis.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-star"></i> Our
+                                        Method</h4>
+                                    <audio controls
+                                        src="audio/mega-tts2/ours/mega_1_est.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Generated using the proposed model
+                                            with 32 inference steps.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Baseline</div>
+                                    <h4><i class="fas fa-flask"></i> Mega-TTS
+                                        2</h4>
+                                    <audio controls
+                                        src="audio/mega-tts2/baseline/mega_output_1.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Sourced from <a
+                                                href="https://boostprompt.github.io/boostprompt/"
+                                                target="_blank">Mega-TTS 2 demo
+                                                page</a>.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item ground-truth-audio">
+                                    <div class="audio-badge">GT</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Ground-truth Speech</h4>
+                                    <audio controls
+                                        src="audio/mega-tts2/gt/mega_gt_1.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording from the
+                                            reference speaker reading the
+                                            text.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sample-content" data-sample="2">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 2:
+                                "When they entered the stage box on the left the
+                                first act was well under way, the scene
+                                being the interior of a cabin in the south of
+                                Ireland."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"
+                                    aria-label="Scroll left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"
+                                    aria-label="Scroll right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/mega-tts2/prompt/mega_2.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording used as reference
+                                            for zero-shot TTS synthesis.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-star"></i> Our
+                                        Method</h4>
+                                    <audio controls
+                                        src="audio/mega-tts2/ours/mega_2_est.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Generated using the proposed model
+                                            with 32 inference steps.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Baseline</div>
+                                    <h4><i class="fas fa-flask"></i> Mega-TTS
+                                        2</h4>
+                                    <audio controls
+                                        src="audio/mega-tts2/baseline/mega_output_2.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Sourced from <a
+                                                href="https://boostprompt.github.io/boostprompt/"
+                                                target="_blank">Mega-TTS 2 demo
+                                                page</a>.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item ground-truth-audio">
+                                    <div class="audio-badge">GT</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Ground-truth Speech</h4>
+                                    <audio controls
+                                        src="audio/mega-tts2/gt/mega_gt_2.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording from the
+                                            reference speaker reading the
+                                            text.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sample-content" data-sample="3">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 3:
+                                "Now in this of Burne Jones, the landscape is
+                                clearly full of light everywhere, color or
+                                glass light: that is, the outline is prepared
+                                for modification of color only."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"
+                                    aria-label="Scroll left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"
+                                    aria-label="Scroll right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/mega-tts2/prompt/mega_3.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording used as reference
+                                            for zero-shot TTS synthesis.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-star"></i> Our
+                                        Method</h4>
+                                    <audio controls
+                                        src="audio/mega-tts2/ours/mega_3_est.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Generated using the proposed model
+                                            with 32 inference steps.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Baseline</div>
+                                    <h4><i class="fas fa-flask"></i> Mega-TTS
+                                        2</h4>
+                                    <audio controls
+                                        src="audio/mega-tts2/baseline/mega_output_3.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Sourced from <a
+                                                href="https://boostprompt.github.io/boostprompt/"
+                                                target="_blank">Mega-TTS 2 demo
+                                                page</a>.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item ground-truth-audio">
+                                    <div class="audio-badge">GT</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Ground-truth Speech</h4>
+                                    <audio controls
+                                        src="audio/mega-tts2/gt/mega_gt_3.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording from the
+                                            reference speaker reading the
+                                            text.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sample-content" data-sample="4">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 4:
+                                "In what a disgraceful light might it not strike so vain a man!"
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"
+                                    aria-label="Scroll left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"
+                                    aria-label="Scroll right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/mega-tts2/prompt/mega_man-huhu_gt.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording used as reference
+                                            for zero-shot TTS synthesis.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-star"></i> Our
+                                        Method</h4>
+                                    <audio controls
+                                        src="audio/mega-tts2/ours/mega_man-huhu_gt_est.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Generated using the proposed model
+                                            with 32 inference steps.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Baseline</div>
+                                    <h4><i class="fas fa-flask"></i> Mega-TTS
+                                        2</h4>
+                                    <audio controls
+                                        src="audio/mega-tts2/baseline/man-huhu_2.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Sourced from <a
+                                                href="https://boostprompt.github.io/boostprompt/"
+                                                target="_blank">Mega-TTS 2 demo
+                                                page</a>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sample-content" data-sample="5">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 5:
+                                "Then I would never talk to that person about
+                                boa constrictors, or primeval forests, or
+                                stars. I would bring myself down to his level."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"
+                                    aria-label="Scroll left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"
+                                    aria-label="Scroll right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/mega-tts2/prompt/mega_man-laugh_gt.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording used as reference
+                                            for zero-shot TTS synthesis.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-star"></i> Our
+                                        Method</h4>
+                                    <audio controls
+                                        src="audio/mega-tts2/ours/mega_man-laugh_gt_est.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Generated using the proposed model
+                                            with 32 inference steps.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Baseline</div>
+                                    <h4><i class="fas fa-flask"></i> Mega-TTS
+                                        2</h4>
+                                    <audio controls
+                                        src="audio/mega-tts2/baseline/man-laugh_2.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Sourced from <a
+                                                href="https://boostprompt.github.io/boostprompt/"
+                                                target="_blank">Mega-TTS 2 demo
+                                                page</a>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sample-content" data-sample="6">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 6:
+                                "Then I would never talk to that person about
+                                boa constrictors, or primeval forests, or
+                                stars. I would bring myself down to his level."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"
+                                    aria-label="Scroll left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"
+                                    aria-label="Scroll right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/mega-tts2/prompt/mega_woman-cry_gt.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording used as reference
+                                            for zero-shot TTS synthesis.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-star"></i> Our
+                                        Method</h4>
+                                    <audio controls
+                                        src="audio/mega-tts2/ours/mega_woman-cry_gt_est.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Generated using the proposed model
+                                            with 32 inference steps.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Baseline</div>
+                                    <h4><i class="fas fa-flask"></i> Mega-TTS
+                                        2</h4>
+                                    <audio controls
+                                        src="audio/mega-tts2/baseline/woman-cry_1.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Sourced from <a
+                                                href="https://boostprompt.github.io/boostprompt/"
+                                                target="_blank">Mega-TTS 2 demo
+                                                page</a>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- CLaM-TTS Comparison -->
+                <div class="comparison-content" id="clam-tts">
+                    <div class="sample-tabs">
+                        <button class="sample-tab active" data-sample="1">
+                            <i class="fas fa-music"></i> Sample 1
+                        </button>
+                        <button class="sample-tab" data-sample="2">
+                            <i class="fas fa-music"></i> Sample 2
+                        </button>
+                        <button class="sample-tab" data-sample="3">
+                            <i class="fas fa-music"></i> Sample 3
+                        </button>
+                        <button class="sample-tab" data-sample="4">
+                            <i class="fas fa-music"></i> Sample 4
+                        </button>
+                        <button class="sample-tab" data-sample="5">
+                            <i class="fas fa-music"></i> Sample 5
+                        </button>
+                        <button class="sample-tab" data-sample="6">
+                            <i class="fas fa-music"></i> Sample 6
+                        </button>
+                    </div>
+
+                    <div class="sample-content active" data-sample="1">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 1:
+                                "Thus did this humane and right minded father
+                                comfort his unhappy daughter, and her mother
+                                embracing her again, did all she could to soothe
+                                her feelings."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"
+                                    aria-label="Scroll left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"
+                                    aria-label="Scroll right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/clam-tts/prompt/clam_zs_prompt_7.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording used as reference
+                                            for zero-shot TTS synthesis.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-star"></i> Our
+                                        Method</h4>
+                                    <audio controls
+                                        src="audio/clam-tts/ours/clam_zs_prompt_7_est.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Generated using the proposed model
+                                            with 32 inference steps.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Baseline</div>
+                                    <h4><i class="fas fa-flask"></i>
+                                        CLaM-TTS</h4>
+                                    <audio controls
+                                        src="audio/clam-tts/baseline/clam_output_7.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Sourced from <a
+                                                href="https://clam-tts.github.io/"
+                                                target="_blank">CLaM-TTS demo
+                                                page</a>.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item ground-truth-audio">
+                                    <div class="audio-badge">GT</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Ground-truth Speech</h4>
+                                    <audio controls
+                                        src="audio/clam-tts/gt/clam_gt_7.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording from the
+                                            reference speaker reading the
+                                            text.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sample-content" data-sample="2">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 2:
+                                "He was in deep converse with the clerk and entered the hall holding him by the arm."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"
+                                    aria-label="Scroll left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"
+                                    aria-label="Scroll right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/clam-tts/prompt/clam_zs_prompt_8.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording used as reference
+                                            for zero-shot TTS synthesis.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-star"></i> Our
+                                        Method</h4>
+                                    <audio controls
+                                        src="audio/clam-tts/ours/clam_zs_prompt_8_est.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Generated using the proposed model
+                                            with 32 inference steps.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Baseline</div>
+                                    <h4><i class="fas fa-flask"></i>
+                                        CLaM-TTS</h4>
+                                    <audio controls
+                                        src="audio/clam-tts/baseline/clam_output_8.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Sourced from <a
+                                                href="https://clam-tts.github.io/"
+                                                target="_blank">CLaM-TTS demo
+                                                page</a>.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item ground-truth-audio">
+                                    <div class="audio-badge">GT</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Ground-truth Speech</h4>
+                                    <audio controls
+                                        src="audio/clam-tts/gt/clam_gt_8.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording from the
+                                            reference speaker reading the
+                                            text.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sample-content" data-sample="3">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 3:
+                                "Indeed, there were only one or two strangers
+                                who could be admitted among the sisters
+                                without producing the same result."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"
+                                    aria-label="Scroll left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"
+                                    aria-label="Scroll right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/clam-tts/prompt/clam_zs_prompt_9.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording used as reference
+                                            for zero-shot TTS synthesis.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-star"></i> Our
+                                        Method</h4>
+                                    <audio controls
+                                        src="audio/clam-tts/ours/clam_zs_prompt_9_est.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Generated using the proposed model
+                                            with 32 inference steps.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Baseline</div>
+                                    <h4><i class="fas fa-flask"></i>
+                                        CLaM-TTS</h4>
+                                    <audio controls
+                                        src="audio/clam-tts/baseline/clam_output_9.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Sourced from <a
+                                                href="https://clam-tts.github.io/"
+                                                target="_blank">CLaM-TTS demo
+                                                page</a>.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item ground-truth-audio">
+                                    <div class="audio-badge">GT</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Ground-truth Speech</h4>
+                                    <audio controls
+                                        src="audio/clam-tts/gt/clam_gt_9.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording from the
+                                            reference speaker reading the
+                                            text.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sample-content" data-sample="4">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 4:
+                                "For if he's anywhere on the farm, we can send for him in a minute."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"
+                                    aria-label="Scroll left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"
+                                    aria-label="Scroll right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/clam-tts/prompt/clam_zs_prompt_10.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording used as reference
+                                            for zero-shot TTS synthesis.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-star"></i> Our
+                                        Method</h4>
+                                    <audio controls
+                                        src="audio/clam-tts/ours/clam_zs_prompt_10_est.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Generated using the proposed model
+                                            with 32 inference steps.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Baseline</div>
+                                    <h4><i class="fas fa-flask"></i>
+                                        CLaM-TTS</h4>
+                                    <audio controls
+                                        src="audio/clam-tts/baseline/clam_output_10.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Sourced from <a
+                                                href="https://clam-tts.github.io/"
+                                                target="_blank">CLaM-TTS demo
+                                                page</a>.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item ground-truth-audio">
+                                    <div class="audio-badge">GT</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Ground-truth Speech</h4>
+                                    <audio controls
+                                        src="audio/clam-tts/gt/clam_gt_10.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording from the
+                                            reference speaker reading the
+                                            text.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sample-content" data-sample="5">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 5:
+                                "Their piety would be like their names, like
+                                their faces, like their clothes, and it was
+                                idle for him to tell himself that their humble
+                                and contrite hearts it might be paid a
+                                far-richer tribute of devotion than his had ever
+                                been. A gift tenfold more acceptable than
+                                his elaborate adoration."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"
+                                    aria-label="Scroll left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"
+                                    aria-label="Scroll right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/clam-tts/prompt/clam_zs_prompt_11.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording used as reference
+                                            for zero-shot TTS synthesis.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-star"></i> Our
+                                        Method</h4>
+                                    <audio controls
+                                        src="audio/clam-tts/ours/clam_zs_prompt_11_est.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Generated using the proposed model
+                                            with 32 inference steps.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Baseline</div>
+                                    <h4><i class="fas fa-flask"></i>
+                                        CLaM-TTS</h4>
+                                    <audio controls
+                                        src="audio/clam-tts/baseline/clam_output_11.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Sourced from <a
+                                                href="https://clam-tts.github.io/"
+                                                target="_blank">CLaM-TTS demo
+                                                page</a>.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item ground-truth-audio">
+                                    <div class="audio-badge">GT</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Ground-truth Speech</h4>
+                                    <audio controls
+                                        src="audio/clam-tts/gt/clam_gt_11.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording from the
+                                            reference speaker reading the
+                                            text.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sample-content" data-sample="6">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 6:
+                                "The air and the earth are curiously mated and
+                                intermingled as if the one were the breath of
+                                the other."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"
+                                    aria-label="Scroll left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"
+                                    aria-label="Scroll right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/clam-tts/prompt/clam_zs_prompt_12.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording used as reference
+                                            for zero-shot TTS synthesis.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-star"></i> Our
+                                        Method</h4>
+                                    <audio controls
+                                        src="audio/clam-tts/ours/clam_zs_prompt_12_est.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Generated using the proposed model
+                                            with 32 inference steps.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Baseline</div>
+                                    <h4><i class="fas fa-flask"></i>
+                                        CLaM-TTS</h4>
+                                    <audio controls
+                                        src="audio/clam-tts/baseline/clam_output_12.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Sourced from <a
+                                                href="https://clam-tts.github.io/"
+                                                target="_blank">CLaM-TTS demo
+                                                page</a>.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item ground-truth-audio">
+                                    <div class="audio-badge">GT</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Ground-truth Speech</h4>
+                                    <audio controls
+                                        src="audio/clam-tts/gt/clam_gt_12.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording from the
+                                            reference speaker reading the
+                                            text.</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DiTTo-TTS Comparison -->
+                <div class="comparison-content" id="ditto-tts">
+                    <div class="sample-tabs">
+                        <button class="sample-tab active" data-sample="1">
+                            <i class="fas fa-music"></i> Sample 1
+                        </button>
+                        <button class="sample-tab" data-sample="2">
+                            <i class="fas fa-music"></i> Sample 2
+                        </button>
+                        <button class="sample-tab" data-sample="3">
+                            <i class="fas fa-music"></i> Sample 3
+                        </button>
+                        <button class="sample-tab" data-sample="4">
+                            <i class="fas fa-music"></i> Sample 4
+                        </button>
+                        <button class="sample-tab" data-sample="5">
+                            <i class="fas fa-music"></i> Sample 5
+                        </button>
+                        <button class="sample-tab" data-sample="6">
+                            <i class="fas fa-music"></i> Sample 6
+                        </button>
+                    </div>
+
+                    <div class="sample-content active" data-sample="1">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 1:
+                                "Do not therefore think that the gothic school is an easy one."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"
+                                    aria-label="Scroll left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"
+                                    aria-label="Scroll right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/ditto-tts/prompt/ditto_zs_prompt_1.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording used as reference
+                                            for zero-shot TTS synthesis.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-star"></i> Our
+                                        Method</h4>
+                                    <audio controls
+                                        src="audio/ditto-tts/ours/ditto_zs_prompt_1_est.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Generated using the proposed model
+                                            with 32 inference steps.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Baseline</div>
+                                    <h4><i class="fas fa-flask"></i>
+                                        DiTTo-TTS</h4>
+                                    <audio controls
+                                        src="audio/ditto-tts/baseline/ditto_output_1.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Sourced from <a
+                                                href="https://ditto-tts.github.io/"
+                                                target="_blank">DiTTo-TTS
+                                                demo
+                                                page</a>.</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sample-content" data-sample="2">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 2:
+                                "Did ever anybody see the like screamed missus
+                                poyser running towards the table when her eye
+                                had fallen on the blue stream."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"
+                                    aria-label="Scroll left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"
+                                    aria-label="Scroll right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/ditto-tts/prompt/ditto_zs_prompt_2.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording used as reference
+                                            for zero-shot TTS synthesis.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-star"></i> Our
+                                        Method</h4>
+                                    <audio controls
+                                        src="audio/ditto-tts/ours/ditto_zs_prompt_2_est.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Generated using the proposed model
+                                            with 32 inference steps.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Baseline</div>
+                                    <h4><i class="fas fa-flask"></i>
+                                        DiTTo-TTS</h4>
+                                    <audio controls
+                                        src="audio/ditto-tts/baseline/ditto_output_2.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Sourced from <a
+                                                href="https://ditto-tts.github.io/"
+                                                target="_blank">DiTTo-TTS
+                                                demo
+                                                page</a>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sample-content" data-sample="3">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 3:
+                                "It is sold everywhere but for the last three
+                                weeks nobody will use any snuff but that sold
+                                at the civet cat."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"
+                                    aria-label="Scroll left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"
+                                    aria-label="Scroll right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/ditto-tts/prompt/ditto_zs_prompt_3.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording used as reference
+                                            for zero-shot TTS synthesis.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-star"></i> Our
+                                        Method</h4>
+                                    <audio controls
+                                        src="audio/ditto-tts/ours/ditto_zs_prompt_3_est.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Generated using the proposed model
+                                            with 32 inference steps.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Baseline</div>
+                                    <h4><i class="fas fa-flask"></i>
+                                        DiTTo-TTS</h4>
+                                    <audio controls
+                                        src="audio/ditto-tts/baseline/ditto_output_3.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Sourced from <a
+                                                href="https://ditto-tts.github.io/"
+                                                target="_blank">DiTTo-TTS
+                                                demo
+                                                page</a>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sample-content" data-sample="4">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 4:
+                                "And this was why kenneth and beth discovered
+                                him conversing with the young woman in the
+                                buggy."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"
+                                    aria-label="Scroll left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"
+                                    aria-label="Scroll right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/ditto-tts/prompt/ditto_zs_prompt_4.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording used as reference
+                                            for zero-shot TTS synthesis.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-star"></i> Our
+                                        Method</h4>
+                                    <audio controls
+                                        src="audio/ditto-tts/ours/ditto_zs_prompt_4_est.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Generated using the proposed model
+                                            with 32 inference steps.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Baseline</div>
+                                    <h4><i class="fas fa-flask"></i>
+                                        DiTTo-TTS</h4>
+                                    <audio controls
+                                        src="audio/ditto-tts/baseline/ditto_output_4.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Sourced from <a
+                                                href="https://ditto-tts.github.io/"
+                                                target="_blank">DiTTo-TTS
+                                                demo
+                                                page</a>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sample-content" data-sample="5">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 5:
+                                "She felt the force of the objections."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"
+                                    aria-label="Scroll left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"
+                                    aria-label="Scroll right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/ditto-tts/prompt/ditto_zs_prompt_5.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording used as reference
+                                            for zero-shot TTS synthesis.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-star"></i> Our
+                                        Method</h4>
+                                    <audio controls
+                                        src="audio/ditto-tts/ours/ditto_zs_prompt_5_est.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Generated using the proposed model
+                                            with 32 inference steps.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Baseline</div>
+                                    <h4><i class="fas fa-flask"></i>
+                                        DiTTo-TTS</h4>
+                                    <audio controls
+                                        src="audio/ditto-tts/baseline/ditto_output_5.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Sourced from <a
+                                                href="https://ditto-tts.github.io/"
+                                                target="_blank">DiTTo-TTS
+                                                demo
+                                                page</a>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sample-content" data-sample="6">
+                        <div class="comparison-group">
+                            <h3><i class="fas fa-quote-left"></i> Text 6:
+                                "She can't get it out of her head, even after
+                                fifty years."
+                                <i class="fas fa-quote-right"></i>
+                            </h3>
+
+                            <div class="scroll-controls">
+                                <button class="scroll-btn scroll-left"
+                                    aria-label="Scroll left"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="scroll-btn scroll-right"
+                                    aria-label="Scroll right"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="audio-container">
+                                <div class="audio-item reference-audio">
+                                    <div class="audio-badge">Reference</div>
+                                    <h4><i class="fas fa-volume-up"></i>
+                                        Reference Speech</h4>
+                                    <audio controls
+                                        src="audio/ditto-tts/prompt/ditto_zs_prompt_6.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Original recording used as reference
+                                            for zero-shot TTS synthesis.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Proposed</div>
+                                    <h4><i class="fas fa-star"></i> Our
+                                        Method</h4>
+                                    <audio controls
+                                        src="audio/ditto-tts/ours/ditto_zs_prompt_6_est.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Generated using the proposed model
+                                            with 32 inference steps.</p>
+                                    </div>
+                                </div>
+
+                                <div class="audio-item">
+                                    <div class="audio-badge">Baseline</div>
+                                    <h4><i class="fas fa-flask"></i>
+                                        DiTTo-TTS</h4>
+                                    <audio controls
+                                        src="audio/ditto-tts/baseline/ditto_output_6.wav"></audio>
+                                    <div class="audio-description">
+                                        <p><i class="fas fa-info-circle"></i>
+                                            Sourced from <a
+                                                href="https://ditto-tts.github.io/"
+                                                target="_blank">DiTTo-TTS
+                                                demo
+                                                page</a>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer>
+            <div class="container">
+                <p>&copy; <span id="current-year">2025</span> - Anonymous Authors</a></p>
+            </div>
+        </footer>
+
+        <a href="#" id="back-to-top" class="back-to-top">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+
+        <script src="script.js"></script>
+    </body>
+
+</html>
