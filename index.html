@@ -19,8 +19,7 @@
             <div class="container">
                 <span class="badge">Research Demo</span>
                 <h1>SupertonicTTS</h1>
-                <p class="subtitle">Towards Highly Scalable and Efficient
-                    Text-to-Speech System</p>
+                <p class="subtitle">Towards Highly Efficient and Streamlined Text-to-Speech System</p>
                 <div class="author-info">
                     <div class="author-info-header">
                         <i class="fas fa-users"></i>
@@ -51,30 +50,7 @@
             <section id="introduction">
                 <h2>Overview</h2>
                 <div class="paper-abstract">
-                    <p>
-                        We present a novel text-to-speech (TTS) system, namely
-                        SupertonicTTS, for improved scalability and
-                        efficiency in speech synthesis. SupertonicTTS is
-                        comprised of three components: a speech
-                        autoencoder for continuous latent representation, a
-                        text-to-latent module leveraging flow-matching
-                        for text-to-latent mapping, and an utterance-level
-                        duration predictor. To enable a lightweight
-                        architecture, we employ a low-dimensional latent space,
-                        temporal compression of latents, and
-                        ConvNeXt blocks. We further simplify the TTS pipeline by
-                        operating directly on raw character-level
-                        text and employing cross-attention for text-speech
-                        alignment, thus eliminating the need for
-                        grapheme-to-phoneme (G2P) modules and external aligners.
-                        Furthermore, we introduce context-sharing
-                        batch expansion that accelerates loss convergence and
-                        stabilizes text-speech alignment. Experimental
-                        results demonstrate that SupertonicTTS achieves
-                        competitive performance while significantly reducing
-                        architectural complexity and computational overhead
-                        compared to contemporary TTS models.
-                    </p>
+                    <p>We introduce SupertonicTTS, a novel text-to-speech (TTS) system designed for efficient and streamlined speech synthesis. SupertonicTTS comprises three components: a speech autoencoder for continuous latent representation, a text-to-latent module leveraging flow-matching for text-to-latent mapping, and an utterance-level duration predictor. To enable a lightweight architecture, we employ a low-dimensional latent space, temporal compression of latents, and ConvNeXt blocks. The TTS pipeline is further simplified by operating directly on raw character-level text and employing cross-attention for text-speech alignment, thus eliminating the need for grapheme-to-phoneme (G2P) modules and external aligners. In addition, we propose context-sharing batch expansion that accelerates loss convergence and stabilizes text-speech alignment with minimal memory and I/O overhead. Experimental results demonstrate that SupertonicTTS delivers performance comparable to contemporary zero-shot TTS models with only 44M parameters, while significantly reducing architectural complexity and computational cost.</p>
 
                 </div>
             </section>
